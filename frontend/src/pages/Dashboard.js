@@ -105,13 +105,7 @@ export default function Dashboard() {
               <AddProductForm onAdd={(newProduct) => console.log("Added:", newProduct)} />
             )}
             {activeHeader === "Reports" && activeSider === "stock" && <StockSummary />}
-            {activeHeader === "Reports" && activeSider === "export" && (
-              <ExportCSV data={[
-                { key: 1, id: "P001", name: "Laptop", quantity: 10, price: 45000 },
-                { key: 2, id: "P002", name: "Mouse", quantity: 50, price: 500 },
-                { key: 3, id: "P003", name: "Keyboard", quantity: 30, price: 1200 },
-              ]} />
-            )};
+            {activeHeader === "Reports" && activeSider === "export" && <ExportCSV />}
             </Content>
         </Layout>
       </Layout>

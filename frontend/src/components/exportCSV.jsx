@@ -1,17 +1,32 @@
-import React from "react";
-import { Table, Button } from "antd";
+import React, { useEffect, useState } from "react";
+import { Table, Button, message } from "antd";
+import axios from 'axios';
 
-export default function ExportCSV({ data }) {
+export default function ExportCSV() {
+  const [data, setData] = useState([]);
+  
+  useEffect(() => {
+    const fetchItems = async () => {
+      try{
+        const res = await axios.get("http://localhost:3001/api/items");
+        setData(res.data);
+      } catch (err) {
+        message.error("Failed to load inventory to export.")
+      }
+    }
+    fetchItems();
+  }, [])
+
   const columns = [
-    { title: "Product ID", dataIndex: "id", key: "id" },
-    { title: "Name", dataIndex: "name", key: "name" },
+    { title: "Product ID", dataIndex: "itemId", key: "id" },
+    { title: "Name", dataIndex: "itemName", key: "name" },
     { title: "Quantity", dataIndex: "quantity", key: "quantity" },
     { title: "Price", dataIndex: "price", key: "price" },
   ];
 
   const handleExport = () => {
     const headers = ["Product ID", "Name", "Quantity", "Price"];
-    const rows = data.map(item => [item.id, item.name, item.quantity, item.price]);
+    const rows = data.map(item => [item.itemId, item.itemName, item.quantity, item.price]);
     const csvContent = [headers, ...rows].map(e => e.join(",")).join("\n");
 
     const blob = new Blob([csvContent], { type: "text/csv" });
