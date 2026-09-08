@@ -1,13 +1,21 @@
 import React from "react";
-import { Form, Input, InputNumber, Button, Typography } from "antd";
+import { Form, Input, InputNumber, Button, Typography, message } from "antd";
+import axios from 'axios';
+
 
 export default function AddProductForm({ onAdd }) {
   const [form] = Form.useForm();
   const { Title } = Typography;
 
-  const onFinish = (values) => {
-    onAdd(values); // pass new product back to parent
-    form.resetFields();
+  const onFinish = async (values) => {
+    try {
+      await axios.post("http://localhost:3001/api/items", values);
+      message.success("Product added successfully!");
+      form.resetFields();
+      if (onAdd) onAdd();
+    } catch (err) {
+      message.error("Adding product failed.")
+    }
   };
 
   return (
@@ -18,6 +26,7 @@ export default function AddProductForm({ onAdd }) {
           label="Name"
           name="name"
           rules={[{ required: true, message: "Please enter product name" }]}
+          onFinish={onFinish}
         >
           <Input />
         </Form.Item>

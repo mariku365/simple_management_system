@@ -111,7 +111,7 @@ export default function Dashboard() {
                 { key: 2, id: "P002", name: "Mouse", quantity: 50, price: 500 },
                 { key: 3, id: "P003", name: "Keyboard", quantity: 30, price: 1200 },
               ]} />
-            )}
+            )};
             </Content>
         </Layout>
       </Layout>
