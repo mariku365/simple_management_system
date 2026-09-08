@@ -3,7 +3,7 @@ import { Form, Input, InputNumber, Button, Typography, message } from "antd";
 import axios from 'axios';
 
 
-export default function AddProductForm({ onAdd }) {
+export default function AddProductForm() {
   const [form] = Form.useForm();
   const { Title } = Typography;
 
@@ -12,7 +12,6 @@ export default function AddProductForm({ onAdd }) {
       await axios.post("http://localhost:3001/api/items", values);
       message.success("Product added successfully!");
       form.resetFields();
-      if (onAdd) onAdd();
     } catch (err) {
       message.error("Adding product failed.")
     }

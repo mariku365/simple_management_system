@@ -72,7 +72,10 @@ export default function Dashboard() {
           }}
         />
         <div>
-          <Button>Logout</Button>
+          <Button onClick={() => {
+            localStorage.removeItem("token");
+            window.location.href = "/";
+          }}>Logout</Button>
         </div>
       </Header>
       <Layout>
@@ -102,7 +105,7 @@ export default function Dashboard() {
           >
             {activeHeader === "Inventory" && activeSider === "view" && <InventoryTable/>}
             {activeHeader === "Inventory" && activeSider === "add" && (
-              <AddProductForm onAdd={(newProduct) => console.log("Added:", newProduct)} />
+              <AddProductForm/>
             )}
             {activeHeader === "Reports" && activeSider === "stock" && <StockSummary />}
             {activeHeader === "Reports" && activeSider === "export" && <ExportCSV />}

@@ -33,7 +33,7 @@ export default function ExportCSV() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "inventory.csv";
+    a.download = "Inventory Report.csv";
     a.click();
   };
 
